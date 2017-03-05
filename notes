@@ -1,1 +1,5 @@
-<span class="iaLabel"> Apply with your Indeed Resume</span>
+1. Look for job postings with  <span class="iaLabel"> Apply with your Indeed Resume</span>
+
+2. curl -L https://indeed.com/ returns a 302. Need to specify following redirects 
+
+
