@@ -17,6 +17,10 @@ class TestIndeedScrapper(TestCase):
     def test_get_page(self):
         indeed_scrapper = IndeedScrapper(location='Irving Tx', position='Software Engineer')
 
-        soup = indeed_scrapper.get_page()
+        soup = indeed_scrapper.get_jobs()
 
-        print soup.prettify()
+        # for row in soup:
+        #     print
+        #     print row
+        #     print
+

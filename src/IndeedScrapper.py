@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import pycurl
 from StringIO import StringIO
 from urllib import urlencode
+import re
 
 
 class IndeedScrapper:
@@ -9,7 +10,7 @@ class IndeedScrapper:
         self.location = '+'.join(location.split())
         self.position = '+'.join(position.split())
 
-    def get_page(self):
+    def get_jobs(self):
         buffer = StringIO()
 
         curl = pycurl.Curl()
@@ -27,20 +28,19 @@ class IndeedScrapper:
 
         soup = BeautifulSoup(body, 'lxml')
 
-        return soup
+        results_body = soup.find('table', {'id': 'resultsBody'})
 
-    def post_page(self):
-        c = pycurl.Curl()
-        c.setopt(c.URL, 'http://pycurl.io/tests/testpostvars.php')
+        jobs = results_body.find_all('div', {'class': re.compile(r'result')})
 
-        post_data = {'field': 'value'}
-        # Form data must be provided already urlencoded.
-        postfields = urlencode(post_data)
-        # Sets request method to POST,
-        # Content-Type header to application/x-www-form-urlencoded
-        # and data to send in request body.
-        c.setopt(c.POSTFIELDS, postfields)
+        job_urls = []
+        for job in jobs:
+            easily_apply = job.find_all('span', {'class': 'iaLabel'})
 
-        c.perform()
-        c.close()
+            if easily_apply:
+                links = job.find_all('a', {'data-tn-element': 'jobTitle'}, href=True)
+                for link in links:
+                    job_urls.append(link['href'])
+
+        return job_urls
+
 
