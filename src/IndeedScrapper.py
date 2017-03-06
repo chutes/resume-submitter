@@ -3,11 +3,10 @@ import pycurl
 from StringIO import StringIO
 
 
-class Scrapper:
+class IndeedScrapper:
     def __init__(self, location, position):
         self.location = location
         self.position = position
-
 
     def get_page(self):
         buffer = StringIO()
