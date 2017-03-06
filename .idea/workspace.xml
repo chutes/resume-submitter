@@ -32,8 +32,8 @@
       <file leaf-file-name="IndeedScrapper.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IndeedScrapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="57" column="112" lean-forward="false" selection-start-line="57" selection-start-column="112" selection-end-line="57" selection-end-column="112" />
+            <state relative-caret-position="161">
+              <caret line="48" column="36" lean-forward="true" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -352,15 +352,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 34m 46s.xml">
-      <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 35m 08s.xml">
-      <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 35m 34s.xml">
-      <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 36m 03s.xml">
       <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
     </history-entry>
@@ -380,6 +371,15 @@
       <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
     </history-entry>
     <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 48m 58s.xml">
+      <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 54m 58s.xml">
+      <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 57m 36s.xml">
+      <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittest_TestIndeedScrapper_test_get_job_page - 2017.03.06 at 00h 59m 04s.xml">
       <configuration name="Unittest TestIndeedScrapper.test_get_job_page" configurationId="tests" />
     </history-entry>
   </component>
@@ -434,8 +434,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IndeedScrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="57" column="112" lean-forward="false" selection-start-line="57" selection-start-column="112" selection-end-line="57" selection-end-column="112" />
+        <state relative-caret-position="161">
+          <caret line="48" column="36" lean-forward="true" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

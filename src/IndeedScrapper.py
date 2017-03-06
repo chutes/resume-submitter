@@ -49,16 +49,14 @@ class IndeedScrapper:
     def get_job_page(self, job_url):
         driver = webdriver.Chrome('/usr/local/bin/chromedriver')
         driver.maximize_window() # Maximize Window
-        driver.implicitly_wait(10) # Let the page load for 10 seconds so all elements are there
+        driver.implicitly_wait(20) # Let the page load for 10 seconds so all elements are there
 
         driver.get('https://www.indeed.com/{}'.format(job_url))
 
         # Click the apply button and allow the Ajax form to load
         driver.find_element_by_class_name('indeed-apply-button').click()
         try:  # Currently does not work. trying to find a way to access the continue button using css selector.`
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located(driver.find_element_by_css_selector('.button_outter')))
-            continue_button = apply_page.find_all('div', {'class': 'resumeapply'})
-            print continue_button
+            driver.find_element_by_css_selector('a.button_content.form-page-next').click()
         finally:
             driver.close()
 
