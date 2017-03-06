@@ -11,17 +11,23 @@ class IndeedScrapper:
 
     def get_page(self):
         buffer = StringIO()
+
         curl = pycurl.Curl()
-        curl.setopt(curl.URL, 'https://www.indeed.com/jobs?q=linux+engineering&l=')
+
+        curl.setopt(curl.URL, 'https://www.indeed.com/jobs?q={}&l={}'.format(self.position, self.location))
         curl.setopt(curl.WRITEDATA, buffer)
         curl.setopt(curl.FOLLOWLOCATION, True)
+
         curl.perform()
         curl.close()
 
         body = buffer.getvalue()
         # Body is a string in some encoding.
         # In Python 2, we can print it without knowing what the encoding is.
-        return body
+
+        soup = BeautifulSoup(body, 'lxml')
+
+        return soup
 
     def post_page(self):
         c = pycurl.Curl()
