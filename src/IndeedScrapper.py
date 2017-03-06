@@ -3,6 +3,8 @@ import pycurl
 from StringIO import StringIO
 from urllib import urlencode
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import re
 
 
@@ -46,18 +48,30 @@ class IndeedScrapper:
 
     def get_job_page(self, job_url):
         driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+        driver.maximize_window()
+        driver.implicitly_wait(10)
 
         driver.get('https://www.indeed.com/{}'.format(job_url))
 
-        # html = driver.page_source
-        # soup = BeautifulSoup(html, 'lxml')
-        # element = driver.find_element_by_id('indeed-apply-js').click()
 
-        soup = BeautifulSoup(driver.page_source, 'lxml')
 
-        print soup
+        #indeed-ia-1488778081295-0
+        #driver.execute_script("document.getElementById('{}').click()").format(re.search(r'indeed[a-zA-Z0-9-]{0,}'))
 
-        driver.close()
+        driver.find_element_by_class_name('indeed-apply-button').click()
+        try:
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located(driver.find_element_by_class_name('button_inner')))
+            continue_button = apply_page.find_all('div', {'class': 'resumeapply'})
+            print continue_button
+        finally:
+            driver.close()
+
+
+
+
+
+
+
 
 
 
