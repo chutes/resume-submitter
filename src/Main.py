@@ -9,7 +9,7 @@ class Main:
             position='Software Engineer'
         )
 
-        soup = indeed_scrapper.get_jobs()
+        soup = indeed_scrapper.get_job_urls()
 
 
 

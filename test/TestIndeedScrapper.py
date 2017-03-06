@@ -17,10 +17,18 @@ class TestIndeedScrapper(TestCase):
     def test_get_page(self):
         indeed_scrapper = IndeedScrapper(location='Irving Tx', position='Software Engineer')
 
-        soup = indeed_scrapper.get_jobs()
+        job_urls = indeed_scrapper.get_job_urls()
 
-        # for row in soup:
-        #     print
-        #     print row
-        #     print
+        for url in job_urls:
+            print url
+
+    def test_get_job_page(self):
+        job_url = '/company/Enshire-Inc/jobs/Bluetooth-Software-Engineer-e1ad43b2641e7d88?fccid=faf88be40e881896'
+
+        indeed_scrapper = IndeedScrapper(location='Irving Tx', position='Software Engineer')
+
+        job_page = indeed_scrapper.get_job_page(job_url)
+
+        # print job_page
+
 
