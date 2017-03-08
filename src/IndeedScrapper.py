@@ -49,7 +49,7 @@ class IndeedScrapper:
     def get_job_page(self, job_url):
         driver = webdriver.Chrome('/usr/local/bin/chromedriver')
         driver.maximize_window() # Maximize Window
-        driver.implicitly_wait(20) # Let the page load for 10 seconds so all elements are there
+        driver.implicitly_wait(10)  # Let the page load for 10 seconds so all elements are there
 
         driver.get('https://www.indeed.com/{}'.format(job_url))
 
@@ -59,6 +59,27 @@ class IndeedScrapper:
             driver.find_element_by_css_selector('a.button_content.form-page-next').click()
         finally:
             driver.close()
+
+
+    def get_cookie(self):
+        buffer = StringIO()
+
+        curl = pycurl.Curl()
+        curl.setopt(pycurl.URL, 'https://secure.indeed.com/account/login')
+        curl.setopt(pycurl.WRITEDATA, buffer)
+        curl.setopt(pycurl.FOLLOWLOCATION, True)
+        curl.setopt(pycurl.COOKIEJAR, 'cookie.txt')
+        curl.setopt(pycurl.COOKIEFILE, 'cookie.txt')
+        curl.setopt(pycurl.POSTFIELDS, 'action=login&_email=reaganjkirby@gmail.com&_password=6211992rK&remember=1')
+        curl.perform()
+        curl.close()
+
+        body = buffer.getvalue()
+
+        soup = BeautifulSoup(body, 'lxml')
+
+        return soup
+
 
 
 
