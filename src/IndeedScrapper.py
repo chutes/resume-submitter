@@ -1,11 +1,9 @@
 from bs4 import BeautifulSoup
-import pycurl
-from StringIO import StringIO
-from urllib import urlencode
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
+import requests
 
 
 class IndeedScrapper:
@@ -14,22 +12,10 @@ class IndeedScrapper:
         self.position = '+'.join(position.split())
 
     def get_job_urls(self):
-        buffer = StringIO()
+        response = requests.get('https://www.indeed.com/jobs?q={}&l={}'.format(self.position, self.location),
+                                allow_redirects=True)
 
-        curl = pycurl.Curl()
-
-        curl.setopt(curl.URL, 'https://www.indeed.com/jobs?q={}&l={}'.format(self.position, self.location))
-        curl.setopt(curl.WRITEDATA, buffer)
-        curl.setopt(curl.FOLLOWLOCATION, True)
-
-        curl.perform()
-        curl.close()
-
-        body = buffer.getvalue()
-        # Body is a string in some encoding.
-        # In Python 2, we can print it without knowing what the encoding is.
-
-        soup = BeautifulSoup(body, 'lxml')
+        soup = BeautifulSoup(response.text, 'lxml')
 
         results_body = soup.find('table', {'id': 'resultsBody'})
 

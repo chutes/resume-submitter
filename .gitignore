@@ -3,4 +3,4 @@
 venv
 .cache
 geckodriver.log
-
+.idea

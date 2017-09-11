@@ -21,7 +21,7 @@ class TestIndeedScrapper(TestCase):
         job_urls = indeed_scrapper.get_job_urls()
 
         for url in job_urls:
-            print url
+            print(url)
 
     def test_get_job_page(self):
         job_url = '/company/Enshire-Inc/jobs/Bluetooth-Software-Engineer-e1ad43b2641e7d88?fccid=faf88be40e881896'
@@ -37,4 +37,4 @@ class TestIndeedScrapper(TestCase):
 
         cookie = indeed_scrapper.get_cookie()
 
-        print cookie
+        print(cookie)
