@@ -7,7 +7,8 @@ class TestIndeedScrapper(TestCase):
     def test_init(self):
         indeed_scrapper = IndeedScrapper(
             location='Irving Tx',
-            position='Software Engineer'
+            position='Software Engineer',
+
         )
 
         self.assertIsInstance(indeed_scrapper, IndeedScrapper)
@@ -31,4 +32,9 @@ class TestIndeedScrapper(TestCase):
 
         # print job_page
 
+    def test_authentication(self):
+        indeed_scrapper = IndeedScrapper(location='Irving Tx', position='Software Engineer')
 
+        cookie = indeed_scrapper.get_cookie()
+
+        print cookie

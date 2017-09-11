@@ -2,4 +2,14 @@
 
 2. curl -L https://indeed.com/ returns a 302. Need to specify following redirects 
 
+3. Request parameters for initial search 
+l	
+Irving, TX
+q	
+Linux Engineering
+
+https://www.indeed.com/jobs?q=Linux+Engineering&l=Irving%2C+TX
+
+Not quite sure what 2C is. Possibly encoding
+
 

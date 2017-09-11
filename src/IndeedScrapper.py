@@ -3,6 +3,8 @@ import pycurl
 from StringIO import StringIO
 from urllib import urlencode
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import re
 
 
@@ -46,18 +48,45 @@ class IndeedScrapper:
 
     def get_job_page(self, job_url):
         driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+        driver.maximize_window() # Maximize Window
+        driver.implicitly_wait(10)  # Let the page load for 10 seconds so all elements are there
 
         driver.get('https://www.indeed.com/{}'.format(job_url))
 
-        # html = driver.page_source
-        # soup = BeautifulSoup(html, 'lxml')
-        # element = driver.find_element_by_id('indeed-apply-js').click()
+        # Click the apply button and allow the Ajax form to load
+        driver.find_element_by_class_name('indeed-apply-button').click()
+        try:  # Currently does not work. trying to find a way to access the continue button using css selector.`
+            driver.find_element_by_css_selector('a.button_content.form-page-next').click()
+        finally:
+            driver.close()
 
-        soup = BeautifulSoup(driver.page_source, 'lxml')
 
-        print soup
+    def get_cookie(self):
+        buffer = StringIO()
 
-        driver.close()
+        curl = pycurl.Curl()
+        curl.setopt(pycurl.URL, 'https://secure.indeed.com/account/login')
+        curl.setopt(pycurl.WRITEDATA, buffer)
+        curl.setopt(pycurl.FOLLOWLOCATION, True)
+        curl.setopt(pycurl.COOKIEJAR, 'cookie.txt')
+        curl.setopt(pycurl.COOKIEFILE, 'cookie.txt')
+        curl.setopt(pycurl.POSTFIELDS, 'action=login&_email=reaganjkirby@gmail.com&_password=6211992rK&remember=1')
+        curl.perform()
+        curl.close()
+
+        body = buffer.getvalue()
+
+        soup = BeautifulSoup(body, 'lxml')
+
+        return soup
+
+
+
+
+
+
+
+
 
 
 
