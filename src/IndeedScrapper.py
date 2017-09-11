@@ -17,9 +17,7 @@ class IndeedScrapper:
 
         soup = BeautifulSoup(response.text, 'lxml')
 
-        results_body = soup.find('table', {'id': 'resultsBody'})
-
-        jobs = results_body.find_all('div', {'class': re.compile(r'result')})
+        jobs = soup.find('table', {'id': 'resultsBody'}).find_all('div', {'class': re.compile(r'result')})
 
         job_urls = []
         for job in jobs:
@@ -38,13 +36,14 @@ class IndeedScrapper:
         driver.implicitly_wait(10)  # Let the page load for 10 seconds so all elements are there
 
         driver.get('https://www.indeed.com/{}'.format(job_url))
+        driver.implicitly_wait(20)
 
         # Click the apply button and allow the Ajax form to load
         driver.find_element_by_class_name('indeed-apply-button').click()
-        try:  # Currently does not work. trying to find a way to access the continue button using css selector.`
-            driver.find_element_by_css_selector('a.button_content.form-page-next').click()
-        finally:
-            driver.close()
+        # try:  # Currently does not work. trying to find a way to access the continue button using css selector.`
+        #     driver.find_element_by_css_selector('a.button_content.form-page-next').click()
+        # finally:
+        #     driver.close()
 
     def get_cookie(self):
         """ Get a session object to pass between requests"""
