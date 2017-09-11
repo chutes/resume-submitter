@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 import requests
+import urllib.parse
 
 
 class IndeedScrapper:
@@ -45,10 +46,47 @@ class IndeedScrapper:
         # finally:
         #     driver.close()
 
-    def get_cookie(self):
-        """ Get a session object to pass between requests"""
-        pass
+    def get_job_category(self):
 
+        """ Get a list of all the different job categories supported on Indeed. Accounting, Engineering,
+        etc. Then we will use those categories to make a get a list of all the different types of jobs for each
+        category and start performing text analysis against different job listings. This is so we can start understanding
+        the different requirements each industry is most looking for with each job"""
+        response = requests.get('https://www.indeed.com/find-jobs.jsp')
+
+        soup = BeautifulSoup(response.text, 'lxml')
+
+        category_table = soup.find('table', {'id': 'categories'}).find_all('td')
+
+        job_categories = []
+        for row in category_table:
+            for item in row:
+                element = item.getText()
+                job_categories.append(element)
+
+        return job_categories
+
+    def get_list_of_jobs(self, job_categories):
+        """Get a list of each job title for each job category"""
+        job_titles = []
+        for job in job_categories:
+            encoded_job = urllib.parse.urlencode({'cat': job})
+            response = requests.get('https://www.indeed.com/find-jobs.jsp?{}'.format(encoded_job))
+
+            soup = BeautifulSoup(response.text, 'lxml')
+
+            job_title_table = soup.find('table', {'id': 'titles'}).find_all('td')
+
+            for row in job_title_table:
+                for element in row.find_all('a', {'class': 'jobTitle'}):
+                    job_titles.append(element.getText())
+
+        print(job_titles)
+        return job_titles
+
+indeed_scrapper = IndeedScrapper(location='Irving Tx', position='Software Engineer')
+categories = indeed_scrapper.get_job_category()
+indeed_scrapper.get_list_of_jobs(categories)
 
 
 
