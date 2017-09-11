@@ -46,25 +46,12 @@ class IndeedScrapper:
         finally:
             driver.close()
 
-
     def get_cookie(self):
-        buffer = StringIO()
+        """ Get a session object to pass between requests"""
+        pass
 
-        curl = pycurl.Curl()
-        curl.setopt(pycurl.URL, 'https://secure.indeed.com/account/login')
-        curl.setopt(pycurl.WRITEDATA, buffer)
-        curl.setopt(pycurl.FOLLOWLOCATION, True)
-        curl.setopt(pycurl.COOKIEJAR, 'cookie.txt')
-        curl.setopt(pycurl.COOKIEFILE, 'cookie.txt')
-        curl.setopt(pycurl.POSTFIELDS, 'action=login&_email=reaganjkirby@gmail.com&_password=6211992rK&remember=1')
-        curl.perform()
-        curl.close()
 
-        body = buffer.getvalue()
 
-        soup = BeautifulSoup(body, 'lxml')
-
-        return soup
 
 
 
